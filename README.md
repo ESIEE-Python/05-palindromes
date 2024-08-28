@@ -15,6 +15,9 @@ Le fichier ``main.py`` contient :
 
 1️⃣ Ecrire le code de la fonction secondaire.
 
+> [!TIP]
+Pour traiter efficacement le problème des caractères accentués, utiliser la méthode [translate()](https://docs.python.org/3/library/stdtypes.html#str.translate) qui prend en argument une table de correspondance créée avec la méthode statique [str.maketrans()](https://docs.python.org/3/library/stdtypes.html#str.maketrans)
+
 2️⃣ Ecrire quelques appels à la fonction secondaire dans ``main()``.
 
 3️⃣ Exécuter le programme depuis le terminal
