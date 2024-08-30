@@ -4,8 +4,8 @@
 def ispalindrome(p):
 
     # votre code ici
-
-    pass
+    
+    return False
 
 #### Fonction principale
 
@@ -14,7 +14,7 @@ def main():
 
     # vos appels à la fonction secondaire ici
 
-    for s in [ "radar", "kayak", "level", "rotor", "civique", "deifie"]:
+    for s in ["radar", "kayak", "level", "rotor", "civique", "deifie"]:
         print(s, ispalindrome(s))
 
 
