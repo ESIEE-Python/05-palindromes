@@ -1,3 +1,6 @@
+> [!CAUTION]
+Ce travail s'effectue dans [l'environnement Github](https://perso.esiee.fr/~courivad/courses/utils/misc-01-github-environment.html)
+
 # Palindromes
 
 Un [palindrome(https://fr.wikipedia.org/wiki/Palindrome)] est un mot ou une phrase qui se lit indifféremment de droite à gauche et de gauche à droite. L'objectif est d'écrire du code qui permet de vérifier si une chaine de caractère est un palindrome ou pas.
@@ -30,7 +33,7 @@ Pour traiter efficacement le problème des caractères accentués, utiliser la m
 
 Le score de test ``SC`` obtenu est le pourcentage de tests réussis. Tant que certains tests échouent, répéter le cycle 1️⃣ 2️⃣ 3️⃣ 4️⃣
 
-5️⃣ Lorsque le score de test ``SC`` est satisfaisant, s'intéresser à la [qualité du code](https://perso.esiee.fr/~courivad/courses/sources/python-23-codequality.html).
+5️⃣ Lorsque le score de test ``SC`` est satisfaisant, s'intéresser à la [qualité du code](https://perso.esiee.fr/~courivad/courses/utils/python-23-codequality.html).
 
     $ pylint main.py
 
