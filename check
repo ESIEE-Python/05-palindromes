@@ -1,0 +1,74 @@
+#!/bin/bash
+# Script to check pylint and pytest scores
+
+run_pylint() {
+    echo "Running pylint..."
+    PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
+        | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
+        | awk '{print $7}' | cut -d'/' -f1)
+    echo "Pylint score: $PYLINT_SCORE/10"
+}
+
+run_pytest() {
+    echo "Running pytest..."
+    if $VERBOSE; then
+        pytest .python/test_.py --junitxml=.python/pytest_results.xml
+    else
+        pytest .python/test_.py --junitxml=.python/pytest_results.xml > /dev/null 2>&1
+    fi
+    PYTEST_RESULT=$(python .python/get_pytest_score.py .python/pytest_results.xml)
+    echo "Pytest score: $PYTEST_RESULT"
+}
+
+# Default: run both
+DO_QUALITY=false
+DO_TESTS=false
+VERBOSE=false
+DEFAULT=true
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -q|--quality)
+            DO_QUALITY=true
+            DEFAULT=false
+            ;;
+        -t|--tests)
+            DO_TESTS=true
+            DEFAULT=false
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            ;;
+        -h|--help)
+            echo "Usage: $0 [-q|--quality] [-t|--tests] [-v|--verbose]"
+            echo "  no args        Run both pylint and pytest"
+            echo "  -q, --quality  Run pylint only"
+            echo "  -t, --tests    Run pytest only"
+            echo "  -v, --verbose  Show full pytest output"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use -h or --help for usage."
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+# If no args, run both
+if $DEFAULT; then
+    DO_QUALITY=true
+    DO_TESTS=true
+fi
+
+# Execute
+if $DO_QUALITY; then
+    run_pylint
+fi
+
+if $DO_TESTS; then
+    run_pytest
+fi
+
