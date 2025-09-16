@@ -3,10 +3,18 @@
 
 run_pylint() {
     echo "Running pylint..."
-    PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
-        | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
-        | awk '{print $7}' | cut -d'/' -f1)
-    echo "Pylint score: $PYLINT_SCORE/10"
+    if $VERBOSE; then
+        pylint main.py --score=y --output-format=text
+        PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
+            | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
+            | awk '{print $7}' | cut -d'/' -f1)
+    else
+        PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
+            | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
+            | awk '{print $7}' | cut -d'/' -f1)
+    fi
+    PYLINT_SCORE_INT=$(echo "$PYLINT_SCORE * 10" | bc)
+    echo "Pylint score: $PYLINT_SCORE_INT/100"
 }
 
 run_pytest() {
@@ -17,7 +25,8 @@ run_pytest() {
         pytest .python/test_.py --junitxml=.python/pytest_results.xml > /dev/null 2>&1
     fi
     PYTEST_RESULT=$(python .python/get_pytest_score.py .python/pytest_results.xml)
-    echo "Pytest score: $PYTEST_RESULT"
+    PYTEST_RESULT_INT=$(echo "$PYTEST_RESULT * 100" | bc)
+    echo "Pytest score: $PYTEST_RESULT_INT/100"
 }
 
 # Default: run both
