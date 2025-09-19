@@ -4,17 +4,20 @@
 run_pylint() {
     echo "Running pylint..."
     if $VERBOSE; then
-        pylint main.py --score=y --output-format=text
-        PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
-            | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
-            | awk '{print $7}' | cut -d'/' -f1)
-    else
-        PYLINT_SCORE=$(pylint main.py --score=y --output-format=text \
-            | grep -o 'Your code has been rated at [0-9]\+\.[0-9]\+/10' \
-            | awk '{print $7}' | cut -d'/' -f1)
+        pylint main.py --output-format=text
     fi
-    PYLINT_SCORE_INT=$(echo "$PYLINT_SCORE * 10" | bc)
-    echo "Pylint score: $PYLINT_SCORE_INT/100"
+
+    PYLINT_SCORE=$(pylint main.py --output-format=text 2>/dev/null \
+        | grep -oE 'rated at [0-9]+\.[0-9]+/10' \
+        | sed -E 's/[^0-9]*([0-9]+\.[0-9]+)\/10/\1/' \
+        | tail -n1)
+
+    if [[ -n "$PYLINT_SCORE" ]]; then
+        PYLINT_SCORE_INT=$(echo "$PYLINT_SCORE * 10" | bc)
+        echo "Pylint score: $PYLINT_SCORE_INT/100"
+    else
+        echo "⚠️ Could not extract pylint score"
+    fi
 }
 
 run_pytest() {
@@ -24,9 +27,18 @@ run_pytest() {
     else
         pytest .python/test_.py --junitxml=.python/pytest_results.xml > /dev/null 2>&1
     fi
-    PYTEST_RESULT=$(python .python/get_pytest_score.py .python/pytest_results.xml)
-    PYTEST_RESULT_INT=$(echo "$PYTEST_RESULT * 100" | bc)
-    echo "Pytest score: $PYTEST_RESULT_INT/100"
+
+    if [[ -f ".python/pytest_results.xml" ]]; then
+        PYTEST_RESULT=$(python .python/get_pytest_score.py .python/pytest_results.xml 2>/dev/null)
+        if [[ -n "$PYTEST_RESULT" ]]; then
+            PYTEST_RESULT_INT=$(echo "$PYTEST_RESULT * 100" | bc)
+            echo "Pytest score: $PYTEST_RESULT_INT/100"
+        else
+            echo "⚠️ Could not extract pytest score"
+        fi
+    else
+        echo "⚠️ Pytest results file not found"
+    fi
 }
 
 # Default: run both
@@ -80,4 +92,3 @@ fi
 if $DO_TESTS; then
     run_pytest
 fi
-
