@@ -26,21 +26,17 @@ Le fichier ``main.py`` contient :
 
 4️⃣ Lorsque les résultats obtenus à l'étape 3️⃣ sont satisfaisants, soumettre le code à une procédure de test plus robuste, les tests unitaires.
 
-    $ ./check -t
+    $ pytest .python
 
 Le score de test ``ST`` obtenu est le pourcentage de tests réussis. Tant que certains tests échouent, répéter le cycle 1️⃣ 2️⃣ 3️⃣ 4️⃣
 
 5️⃣ Lorsque le score de test ``ST`` est satisfaisant, s'intéresser à la [qualité du code](https://perso.esiee.fr/~courivad/courses/utils/sources/python-23-codequality.html).
 
-    $ ./check -q
+    $ pylint main.py
 
 Si le score de qualité ``SQ`` n'est pas maximal, répéter l'étape 5️⃣ en tenant compte des messages dans le terminal
 
-6️⃣ Lorsque les scores ``ST`` et ``SQ`` sont satisfaisants, confirmer les valeurs qui seront utilisées pour l'évaluation
-
-    $ ./check
-
-puis pusher le travail pour évaluation
+6️⃣ Lorsque les scores ``ST`` et ``SQ`` sont satisfaisants, pusher le travail pour évaluation
 
     $ git add .
     $ git commit -m "un message explicatif"
