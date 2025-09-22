@@ -14,6 +14,26 @@ Le fichier ``main.py`` contient :
   
 - la fonction principale ``main()`` qui fait quelques appels à la fonction secondaire permettant de vérifier son bon fonctionnement .
 
+## Informations complémentaires
+
+Il existe plusieurs stratégies pour résoudre le problème.
+
+### Algorithme itératif
+
+On peut utiliser un algorithme itératif "bas niveau" en parcourant les caractères de la chaîne simultanément à partir du début et de la fin. Le terme "bas niveau" est employé parce que la solution s'intéresse aux éléments constitutifs de la chaîne de caractère, pas à la chaîne elle même. Cet algorithme fonctionne mais ne tire pas partie des fonctionnalités de Python.
+
+### Approche "haut niveau"
+
+Une approche "haut niveau" ou *pythonique* va a contrario considérer la chaîne de caractère comme l'élément de base. Elle ne nécessite donc pas d'itérations.On utilise exclusivement le slicing et les [méthodes de chaines de caractères](https://docs.python.org/3/library/stdtypes.html#string-methods). Lesquelles ? Cette façon de faire est plus concise, plus performante et doit être privilégiée.
+
+### Algorithme récursif
+
+On peut également utiliser la récursivité. Quels sont les cas de base ? Quel est l'appel récursif ?
+
+### Le problème des caractères accentués
+
+Avant de tester le caractère palindromique de la chaine de caractères, les caractères accentués qui la composent devront être "désaccentués". Ce peut être fait par un enchainement de méthodes ``replace()`` mais le problème sera plus élégamment traité avec la méthode [translate()](https://docs.python.org/3/library/stdtypes.html#str.translate).
+
 ## To do
 
 1️⃣ Ecrire (ou modifier) le code de la fonction secondaire.
