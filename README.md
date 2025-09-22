@@ -7,7 +7,7 @@ Un [palindrome(https://fr.wikipedia.org/wiki/Palindrome)] est un mot ou une phra
 
 Le fichier ``main.py`` contient :
 
-- une fonction secondaire ``ispalindrome()`` qui a pour but de vérifier si un entier est un nombre premier ou pas. 
+- une fonction secondaire ``ispalindrome()`` qui a pour but de vérifier si un mot est un palindrome ou pas. 
   
   - elle prend en argument une chaine de caractères ``s`` ;
   - et retourne un booléen exprimant la vérité de « ``s`` est un palindrome ».
