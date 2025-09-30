@@ -34,6 +34,8 @@ On peut également utiliser la récursivité. Quels sont les cas de base ? Quel 
 
 Avant de tester le caractère palindromique de la chaine de caractères, les caractères accentués qui la composent devront être "désaccentués". Ce peut être fait par un enchainement de méthodes ``replace()`` mais le problème sera plus élégamment traité avec la méthode [translate()](https://docs.python.org/3/library/stdtypes.html#str.translate).
 
+<!-- START INSERT -->
+
 ## To do
 
 1️⃣ Ecrire (ou modifier) le code de la fonction secondaire.
@@ -64,3 +66,5 @@ Si le score de qualité ``SQ`` n'est pas maximal, répéter l'étape 5️⃣ en 
 
 > [!CAUTION]
 En cas de soumissions multiples, seule la première est prise en compte.
+
+<!-- END INSERT -->
